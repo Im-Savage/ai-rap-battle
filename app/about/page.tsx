@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useLayoutEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -52,6 +52,8 @@ export default function AIRapBattle() {
     { name: "PaLM", wins: 14, battles: 19, winRate: 74, specialty: "Pathways Language" },
     { name: "Copilot", wins: 9, battles: 14, winRate: 64, specialty: "Code-Inspired Bars" },
   ])
+  
+  const battleArenaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkPhantom = () => {
@@ -68,6 +70,26 @@ export default function AIRapBattle() {
       checkPhantom()
     }
   }, [])
+  
+  // This hook now uses useLayoutEffect for more reliable scrolling
+  useLayoutEffect(() => {
+    // If a new battle has been created...
+    if (currentBattle) {
+      // ...scroll to the battle arena section smoothly.
+      battleArenaRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [currentBattle]); // This effect runs whenever 'currentBattle' changes
+
+  const debugScroll = () => {
+    console.log("Debug Scroll button clicked. The ref is:", battleArenaRef.current);
+    if (battleArenaRef.current) {
+      // Using "instant" for the test to make it as simple as possible
+      battleArenaRef.current.scrollIntoView({ behavior: "instant", block: "start" });
+      console.log("Scroll command was sent.");
+    } else {
+      console.error("The battle arena ref was not found!");
+    }
+  };
 
   const connectWallet = async () => {
     if (!isPhantomInstalled) {
@@ -346,6 +368,10 @@ export default function AIRapBattle() {
                 </>
               )}
             </Button>
+            
+            <Button onClick={debugScroll} variant="destructive">
+              Test Scroll
+            </Button>
 
             {!isConnected && (
               <div className="glass-minimal px-4 py-2 rounded-lg">
@@ -358,7 +384,7 @@ export default function AIRapBattle() {
 
       {/* Battle Results */}
       {currentBattle && (
-        <section className="container mx-auto px-4 py-16 relative z-10">
+        <section ref={battleArenaRef} className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
