@@ -46,7 +46,7 @@ export default function About() {
 
             <p className="text-lg text-muted-foreground leading-relaxed mb-12">
               By connecting your Phantom wallet, you enter a decentralized metaverse where every battle is unique, every
-              verse is original, and every victory is recorded on the blockchain. This isn't just entertainment—it's the
+              verse is original, and every victory is recorded on the blockchain. This isn&apos;t just entertainment—it&apos;s the
               future of digital culture.
             </p>
           </div>
@@ -77,7 +77,7 @@ export default function About() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Fast, secure, and cost-effective transactions powered by Solana's high-performance blockchain.
+                  Fast, secure, and cost-effective transactions powered by Solana&apos;s high-performance blockchain.
                 </p>
               </CardContent>
             </Card>
@@ -91,7 +91,7 @@ export default function About() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Authentic representation of rap battle culture with respect for the art form's history and evolution.
+                  Authentic representation of rap battle culture with respect for the art form&apos;s history and evolution.
                 </p>
               </CardContent>
             </Card>
