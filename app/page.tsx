@@ -77,16 +77,6 @@ export default function AIRapBattle() {
     }
   }, [currentBattle]);
 
-  const debugScroll = () => {
-    console.log("Debug Scroll button clicked. The ref is:", battleArenaRef.current);
-    if (battleArenaRef.current) {
-      battleArenaRef.current.scrollIntoView({ behavior: "instant", block: "start" });
-      console.log("Scroll command was sent.");
-    } else {
-      console.error("The battle arena ref was not found!");
-    }
-  };
-
   const connectWallet = async () => {
     if (!isPhantomInstalled) {
       window.open("https://phantom.app/", "_blank")
@@ -344,10 +334,6 @@ export default function AIRapBattle() {
                 </>
               )}
             </Button>
-            
-            <Button onClick={debugScroll} variant="destructive">
-              Test Scroll
-            </Button>
 
             {!isConnected && (
               <div className="glass-minimal px-4 py-2 rounded-lg">
@@ -390,7 +376,7 @@ export default function AIRapBattle() {
                 </CardHeader>
                 <CardContent>
                   <blockquote className="text-lg italic border-l-2 border-indigo-500 pl-4 py-2 text-gray-200">
-                    "{currentBattle.line1}"
+                    &quot;{currentBattle.line1}&quot;
                   </blockquote>
                 </CardContent>
               </Card>
@@ -415,7 +401,7 @@ export default function AIRapBattle() {
                 </CardHeader>
                 <CardContent>
                   <blockquote className="text-lg italic border-l-2 border-purple-500 pl-4 py-2 text-gray-200">
-                    "{currentBattle.line2}"
+                    &quot;{currentBattle.line2}&quot;
                   </blockquote>
                 </CardContent>
               </Card>
