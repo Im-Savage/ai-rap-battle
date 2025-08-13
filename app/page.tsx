@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useLayoutEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -52,6 +52,8 @@ export default function AIRapBattle() {
     { name: "PaLM", wins: 14, battles: 19, winRate: 74, specialty: "Pathways Language" },
     { name: "Copilot", wins: 9, battles: 14, winRate: 64, specialty: "Code-Inspired Bars" },
   ])
+  
+  const battleArenaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkPhantom = () => {
@@ -68,6 +70,22 @@ export default function AIRapBattle() {
       checkPhantom()
     }
   }, [])
+  
+  useLayoutEffect(() => {
+    if (currentBattle) {
+      battleArenaRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [currentBattle]);
+
+  const debugScroll = () => {
+    console.log("Debug Scroll button clicked. The ref is:", battleArenaRef.current);
+    if (battleArenaRef.current) {
+      battleArenaRef.current.scrollIntoView({ behavior: "instant", block: "start" });
+      console.log("Scroll command was sent.");
+    } else {
+      console.error("The battle arena ref was not found!");
+    }
+  };
 
   const connectWallet = async () => {
     if (!isPhantomInstalled) {
@@ -137,26 +155,6 @@ export default function AIRapBattle() {
   }
 
   const generateAIBattle = async (rapper1: RapperStats, rapper2: RapperStats, theme: string): Promise<BattleResult> => {
-    const battleTemplates = {
-      [rapper1.name]: {
-        "blockchain technology": [
-          "My blocks are chained tighter than your weak flow, consensus algorithms make my rhymes glow",
-          "Decentralized bars, no single point of failure, while your centralized style makes you a trailer",
-          "Hash functions secure my lyrical treasure, proof of work shows I rap beyond measure",
-        ],
-        "DeFi protocols": [
-          "Liquidity pools deep like my wordplay ocean, automated market makers set my bars in motion",
-          "Yield farming profits while I'm spitting fire, smart contracts execute what haters desire",
-          "Staking my reputation on every single line, compound interest grows my rhyming shrine",
-        ],
-        "NFT marketplaces": [
-          "One-of-a-kind bars, can't be replicated, my flow's so rare it's highly anticipated",
-          "Minting fresh verses on the blockchain ledger, my lyrical art makes me a rap pledger",
-          "Royalties flowing from my verbal creation, digital scarcity builds my reputation",
-        ],
-      },
-    }
-
     const line1 = generateRapLine(rapper1, theme)
     const line2 = generateRapLine(rapper2, theme)
 
@@ -346,6 +344,10 @@ export default function AIRapBattle() {
                 </>
               )}
             </Button>
+            
+            <Button onClick={debugScroll} variant="destructive">
+              Test Scroll
+            </Button>
 
             {!isConnected && (
               <div className="glass-minimal px-4 py-2 rounded-lg">
@@ -358,7 +360,7 @@ export default function AIRapBattle() {
 
       {/* Battle Results */}
       {currentBattle && (
-        <section className="container mx-auto px-4 py-16 relative z-10">
+        <section ref={battleArenaRef} className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
