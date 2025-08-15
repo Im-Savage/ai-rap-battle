@@ -4,9 +4,8 @@ import { useState, useEffect, useRef, useLayoutEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Wallet, Play, Trophy, Zap, Users, BarChart3 } from "lucide-react" // Removed Crown
+import { Wallet, Play, Trophy, Zap, Users, Crown, BarChart3 } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image" // Added Image import
 
 interface BattleResult {
   rapper1: string
@@ -200,9 +199,8 @@ export default function AIRapBattle() {
       <header className="glass-minimal border-b relative z-10">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 flex items-center justify-center">
-              {/* === LOGO CHANGED HERE === */}
-              <Image src="/logo.png" alt="AI Rap Battle Logo" width={32} height={32} />
+            <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center glow-accent">
+              <Crown className="w-5 h-5 text-white" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-white font-mono tracking-[0.2em] relative">
@@ -386,8 +384,7 @@ export default function AIRapBattle() {
       <footer className="glass-minimal border-t mt-16 relative z-10">
         <div className="container mx-auto px-4 py-8 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            {/* === LOGO CHANGED HERE === */}
-            <Image src="/logo.png" alt="AI Rap Battle Logo" width={20} height={20} />
+            <Crown className="w-5 h-5 text-indigo-400" />
             <span className="font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">AI RAP BATTLE</span>
           </div>
           <p className="text-sm text-muted-foreground">Where AI flows meet Metaverse • Built on Solana</p>
